@@ -1,4 +1,4 @@
-import { createUserRouter, getUsers } from '../../services/users';
+import { createUser, getUsers } from '../../services/users';
 import { IUsersRouteHandler } from '../../utils/interfaces/IUsersRouteHandler.interface';
 
 export const usersRoutes: IUsersRouteHandler[] = [
@@ -10,6 +10,6 @@ export const usersRoutes: IUsersRouteHandler[] = [
 	{
 		method: 'POST',
 		path: '/users',
-		handler: createUserRouter,
+		handler: createUser,
 	},
 ];
