@@ -1,4 +1,5 @@
-import { createUser, getUsers } from '../../services/users';
+import { createUser } from '../../services/users/createUser';
+import { getUsers } from '../../services/users/getUsers';
 import { IUsersRouteHandler } from '../../utils/interfaces/IUsersRouteHandler.interface';
 
 export const usersRoutes: IUsersRouteHandler[] = [
