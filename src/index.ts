@@ -1,8 +1,4 @@
-// const http = require('http')
-// const users = require('./../data/users.json');
-
 import http, { IncomingMessage, ServerResponse } from 'http';
-
 import dotenv from 'dotenv';
 import { handleRequest } from './routes';
 
