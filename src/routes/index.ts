@@ -2,18 +2,18 @@ import fs from 'fs';
 import path from 'path';
 import { IncomingMessage, ServerResponse } from 'http';
 import { usersRouter } from './users/index';
+import { send404Response } from '../middlewares/send404Response';
 
 const routePath = path.join(__dirname);
 
 export const handleRequest = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
-	const { url } = req;
+	const { pathname } = new URL(req.url || '', `http://${req.headers.host}`);
 
-	switch (url) {
+	switch (pathname) {
 		case '/users':
 			return await usersRouter(req, res);
 		default:
-			res.writeHead(404, { 'Content-Type': 'application/json' });
-			res.end(JSON.stringify({ error: 'Ruta no encontrada' }));
+			return send404Response(res);
 	}
 };
 
@@ -21,5 +21,5 @@ fs.readdirSync(routePath)
 	.filter((file) => file !== 'index.ts')
 	.forEach((file) => {
 		require(`./${file}`);
-		console.log('LOAD ROUTE   -->', file.toUpperCase().split('.')[0]);
+		console.log('LOAD ROUTE     -->', file.toUpperCase().split('.')[0]);
 	});
