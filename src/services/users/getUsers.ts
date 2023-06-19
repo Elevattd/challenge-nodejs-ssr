@@ -1,6 +1,7 @@
-import { IncomingMessage, ServerResponse } from 'http';
+import { sortUsers } from '../../utils/helpers/users/sortUsers';
+import { filterUsers } from '../../utils/helpers/users/filterUsers';
 import { URLSearchParams } from 'url';
-import { IUser } from '../../utils/interfaces/IUser';
+import { IncomingMessage, ServerResponse } from 'http';
 
 const data = require('../../../data/users.json');
 
@@ -72,42 +73,4 @@ export const getUsers = async (req: IncomingMessage, res: ServerResponse): Promi
 	} catch (error: unknown) {
 		throw new Error('Hubo un error al listar los usuarios.');
 	}
-};
-
-// Aca crear la funcion para hacer el sort de los usuarios. faltan interfaces
-const sortUsers = (users: IUser[], sortBy: string, sortDirection: string): IUser[] => {
-	return users.sort((a, b) => {
-		let propA = a[sortBy];
-		let propB = b[sortBy];
-
-		// Convertir las propiedades a cadenas para asegurar una comparacion correcta
-		propA = String(propA);
-		propB = String(propB);
-
-		let comparison = 0;
-
-		if (propA < propB) {
-			comparison = -1;
-		} else if (propA > propB) {
-			comparison = 1;
-		}
-
-		// Invertir el orden si es descendente
-		if (sortDirection === 'descending') {
-			comparison *= -1;
-		}
-
-		return comparison;
-	});
-};
-
-// Aca voy a crear la funcion para hacer que matchee si se le pasa algun parametro
-const filterUsers = (users: IUser[], matchParams: any) => {
-	return users.filter((user: IUser) => {
-		// veritiicar si todos los campos de coincidencia se cumplen para el usuario actual
-		return Object.entries(matchParams).every(([field, value]) => {
-			// Si el campo no existe en el usuario o no coincide con el valor, devolver false
-			return user.hasOwnProperty(field) && user[field] === value;
-		});
-	});
 };
