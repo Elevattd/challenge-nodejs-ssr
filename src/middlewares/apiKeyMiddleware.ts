@@ -4,7 +4,7 @@ dotenv.config();
 
 export const apiKeyMiddleware = (req: IncomingMessage, res: ServerResponse, next: () => void) => {
 	const { API_KEY } = process.env;
-	const requestApiKey = req.headers['api-key'];
+	const requestApiKey = req.headers['x-api-key'];
 
 	if (API_KEY && requestApiKey && API_KEY === requestApiKey) {
 		next();
