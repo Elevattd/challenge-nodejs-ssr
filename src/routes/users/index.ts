@@ -1,4 +1,4 @@
-import { usersRoutes } from './usersRoutes';
+import { usersRoutes } from './users.routes';
 import { send404Response } from '../../middlewares/send404Response';
 import { IncomingMessage, ServerResponse } from 'http';
 
