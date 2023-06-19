@@ -1,21 +1,19 @@
-import { IncomingMessage, ServerResponse } from 'http';
 import fs from 'fs';
 import path from 'path';
+import { IncomingMessage, ServerResponse } from 'http';
+import { usersRouter } from './users/index';
 
 const routePath = path.join(__dirname);
 
 export const handleRequest = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
-	const { url, method } = req;
+	const { url } = req;
 
-	if (url === '/users' && method === 'GET') {
-		const usersRouter = require('./users').default;
-		usersRouter(req, res);
-	} else if (url === '/users' && method === 'POST') {
-		const createUserRouter = require('./createUser').default;
-		createUserRouter(req, res);
-	} else {
-		res.writeHead(404, { 'Content-Type': 'application/json' });
-		res.end(JSON.stringify({ error: 'Ruta no encontrada' }));
+	switch (url) {
+		case '/users':
+			return await usersRouter(req, res);
+		default:
+			res.writeHead(404, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify({ error: 'Ruta no encontrada' }));
 	}
 };
 
