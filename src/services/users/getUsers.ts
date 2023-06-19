@@ -1,5 +1,6 @@
 import { IncomingMessage, ServerResponse } from 'http';
 import { URLSearchParams } from 'url';
+import { IUser } from '../../utils/interfaces/IUser';
 
 const data = require('../../../data/users.json');
 
@@ -74,8 +75,7 @@ export const getUsers = async (req: IncomingMessage, res: ServerResponse): Promi
 };
 
 // Aca crear la funcion para hacer el sort de los usuarios. faltan interfaces
-const sortUsers = (users: any[], sortBy: string, sortDirection: string): any[] => {
-	// const sortUsers = (users: User[], sortBy: string, sortDirection: string): User[] => {
+const sortUsers = (users: IUser[], sortBy: string, sortDirection: string): IUser[] => {
 	return users.sort((a, b) => {
 		let propA = a[sortBy];
 		let propB = b[sortBy];
@@ -102,8 +102,8 @@ const sortUsers = (users: any[], sortBy: string, sortDirection: string): any[] =
 };
 
 // Aca voy a crear la funcion para hacer que matchee si se le pasa algun parametro
-const filterUsers = (users: any, matchParams: any) => {
-	return users.filter((user: any) => {
+const filterUsers = (users: IUser[], matchParams: any) => {
+	return users.filter((user: IUser) => {
 		// veritiicar si todos los campos de coincidencia se cumplen para el usuario actual
 		return Object.entries(matchParams).every(([field, value]) => {
 			// Si el campo no existe en el usuario o no coincide con el valor, devolver false
