@@ -8,15 +8,7 @@ const data = require('../../../data/users.json');
 export const getUsers = async (req: IncomingMessage, res: ServerResponse): Promise<void> => {
 	try {
 		const url: URL = new URL(req.url || '', `http://${req.headers.host}`);
-		const querys: string[] = url.search.split('?');
-
-		const queryParams: URLSearchParams = new URLSearchParams();
-		for (const param of querys) {
-			const queryParam: URLSearchParams = new URLSearchParams(param);
-			queryParam.forEach((value: string, key: string) => {
-				queryParams.append(key, value);
-			});
-		}
+		const queryParams: URLSearchParams = new URLSearchParams(url.search);
 
 		const page = queryParams.get('page');
 		const limit = queryParams.get('limit');
