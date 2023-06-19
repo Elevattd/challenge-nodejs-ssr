@@ -35,12 +35,7 @@ export const getUsers = async (req: IncomingMessage, res: ServerResponse): Promi
 
 		// logica para obtener todos los usuarios
 		const pageNumber: number = parseInt(page || '1', 10);
-		let limitNumber: number = parseInt(limit || '10', 10);
-
-		// Verificar si no se paso el param page o limit
-		if (!page && !limit) {
-			limitNumber = -1; // Valor que representa "todos"
-		}
+		let limitNumber: number = parseInt(limit || '-1', 10);
 
 		// ligca para obtener los usuarios
 		let allUsers = await data; // Obtener todos los usuarios desde la base de datos
