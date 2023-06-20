@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { v4 as uuid } from 'uuid';
 import { IncomingMessage, ServerResponse } from 'http';
-import { createUser } from '../src/services/users/createUser';
+import { createUser } from '../services/users/createUser';
 
 jest.mock('fs');
 
