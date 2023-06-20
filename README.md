@@ -16,8 +16,9 @@ abajo descritas. Si necesitas generar nuevos usuarios puedes usar el comando `np
 
 ## Como correr el proyecto.
 
-Para correr el proyecto, descargar este repositorio en el docker server y usar el comando `docker-compose up -d` (desde
-el root del proyecto). Esto expondra el puerto 3001 del docker server.
+Para correr el proyecto, descargar este repositorio en el docker server, o tener instalado docker en el sistema
+operativo donde se quiera correr el proyecto y usar el comando `docker-compose up -d` (desde el root del proyecto). Esto
+expondra el puerto 3001 del docker server. O desde windows npm run start.
 
 &nbsp;
 
