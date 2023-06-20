@@ -9,7 +9,8 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
 		const body: any = [];
 		req.on('data', (chunk) => {
 			body.push(chunk);
-		}).on('end', () => {
+		});
+		req.on('end', () => {
 			const rawData: string = Buffer.concat(body).toString();
 			const params: Partial<IUser> = JSON.parse(rawData);
 
@@ -27,9 +28,8 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
 
 			fs.writeFileSync(dataFilePath, JSON.stringify(allUsers, null, 2), 'utf-8');
 
-			res.writeHead(200, { 'Content-Type': 'application/json' }).end(
-				JSON.stringify({ message: 'Usuario creado con éxito.', data: newUser }),
-			);
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify({ message: 'Usuario creado con éxito.', data: newUser }));
 		});
 	} catch (error: unknown) {
 		throw new Error('Hubo un error al crear el usuario.');

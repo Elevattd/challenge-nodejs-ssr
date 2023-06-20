@@ -44,11 +44,11 @@ export const getUsers = async (req: IncomingMessage, res: ServerResponse): Promi
 			const endIndex = startIndex + limitNumber;
 			const paginatedUsers = allUsers.slice(startIndex, endIndex);
 
-			res.writeHead(200, { 'Content-Type': 'application/json' }).end(
-				JSON.stringify({ message: 'Usuarios obtenidos con éxito.', data: paginatedUsers }),
-			);
+			res.writeHead(200, { 'Content-Type': 'application/json' });
+			res.end(JSON.stringify({ message: 'Usuarios obtenidos con éxito.', data: paginatedUsers }));
 		}
 	} catch (error: unknown) {
+		console.error(error); // Imprime el error en la consola para su posterior análisis
 		throw new Error('Hubo un error al listar los usuarios.');
 	}
 };
