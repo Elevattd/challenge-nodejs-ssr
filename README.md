@@ -23,17 +23,15 @@ el root del proyecto). Esto expondra el puerto 3001 del docker server.
 
 ## Rutas
 
--   /users: GET (Acepta query params)
+-   /users: GET (Acepta query params) => Devuelve un listado de los usuarios.
 
     -   pagination: `?page=2&limit=5`
     -   sorting: `?sortBy=email&sortDirection=ascending`
     -   matching: `?match[email]=jdoe@example.com`
 
--   /users: POST
+-   /users: POST => Crea un nuevo usuario.
     -   JSON FORMAT: {"email": "string","name": "string","last_name": "string","sex_type": "string","dni":
         number,"birth_date": "string",}
-    -   sorting: `?sortBy=email&sortDirection=ascending`
-    -   matching: `?match[email]=jdoe@example.com`
 
 &nbsp;
 
