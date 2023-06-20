@@ -3,6 +3,8 @@ import path from 'path';
 import { IUser } from '../../utils/interfaces/IUser';
 import { v4 as uuid } from 'uuid';
 import { IncomingMessage, ServerResponse } from 'http';
+import { isIUser } from '../../utils/helpers/users/iUser.dto';
+import { USER_REQUIRE_PROPS } from '../../utils/helpers/users/constants';
 
 export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
 	try {
@@ -13,8 +15,13 @@ export const createUser = async (req: IncomingMessage, res: ServerResponse) => {
 		req.on('end', () => {
 			const rawData: string = Buffer.concat(body).toString();
 			const params: Partial<IUser> = JSON.parse(rawData);
+			const requiredProps: (keyof IUser)[] = USER_REQUIRE_PROPS;
 
-			const newUser: any = {
+			if (!isIUser(params, requiredProps)) {
+				throw new Error('Hubo un error al crear el usuario.');
+			}
+			const newUser: IUser = {
+				//@ts-ignore
 				wallet_id: uuid(),
 				created_at: new Date().toISOString(),
 				...params,
